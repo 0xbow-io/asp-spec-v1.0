@@ -8,7 +8,7 @@ description = "Specifications of the `association-provider service` also known a
 
 # KaTeX support
 [preprocessor.katex]
-after = ["links"]
+renderers = ["html"]
 
 # Mermaid support
 [preprocessor.mermaid]
@@ -29,7 +29,7 @@ git-repository-icon = "fa-github-alt"
 no-section-label = true
 default-theme = "rust"
 preferred-dark-theme = "navy"
-
+mathjax-support = true
 
 [output.html.fold]
 enable = true
