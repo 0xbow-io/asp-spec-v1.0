@@ -2,41 +2,54 @@
 
 - [Introduction](./README.md)
 
-- [Architecture](data-models/OVERVIEW.md)
-  - [Concepts](architecture/1_concepts.md)
-  - [Components](architecture/2_components.md)
-  - [System Design](architecture/3_system.md)
-  - [Interfaces](architecture/4_interfaces.md)
-  - [Integration Path](./INTEGRATION.md)
+# System Architecture
 
-- [Data Models](data-models/OVERVIEW.md)
-  - [Protocol](data-models/1_protocol.md)
-  - [Record](data-models/2_record.md)
-  - [Association Set](data-models/3_association_set.md)
+- [Overview](system-architecture/README.md)
+  - [1. Concepts](system-architecture/1_concepts.md)
+  - [2. Components](system-architecture/2_components.md)
+  - [3. Interfaces](system-architecture/3_interfaces.md)
+  - [4. Framework](system-architecture/4_framework.md)
 
-- [Functional Specifications](data-models/OVERVIEW.md)
-  - [Record Aggregation](functional/1_record_aggregation.md)
-  - [Record Categorization](functional/2_record_categorization.md)
-  - [Computing Membership Proofs](functional/3_membership_proofs_computation.md)
-  - [Creating Association Sets](functional/4_association_sets_creation.md)
+# Data Models
 
-- [Non-Functional Requirements](data-models/OVERVIEW.md)
-  - [Performance](non-functional/1_performance.md)
-  - [Scalability](non-functional/2_scalability.md)
-  - [Security](non-functional/3_security.md)
-  - [Privacy](non-functional/4_privacy.md)
-  - [Service Availability](non-functional/5_service_availability.md)
-  - [Data Availability](non-functional/6_data_availability.md)
+- [Overview](data-models/README.md)
+  - [1. Protocol](data-models/1_protocol.md)
+  - [2. Record](data-models/2_record.md)
+  - [3. Association Set](data-models/3_association_set.md)
 
-- [API](data-models/OVERVIEW.md)
-  - [Smart Contracts](api/1_smart_contracts.md)
-  - [REST API](api/2_REST.md)
-  - [gRPC](api/3_gRPC.md)
+# Functional Specifications
 
-- [Case Studies](data-models/OVERVIEW.md)
-  - [Privacy Pool](case-studies/1_privacy_pool.md)
+- [Overview](functional/README.md)
+  - [1. Record Aggregation](functional/1_record_aggregation.md)
+  - [2. Record Categorization](functional/2_record_categorization.md)
+  - [3. Computing Membership Proofs](functional/3_membership_proof_computation.md)
+  - [4. Creating Association Sets](functional/4_association_set_creation.md)
+
+# Non-Functional Specifications
+
+- [Overview](non-functional/README.md)
+  - [1. Performance](non-functional/1_performance.md)
+  - [2. Scalability](non-functional/2_scalability.md)
+  - [3. Security](non-functional/3_security.md)
+  - [4. Privacy](non-functional/4_privacy.md)
+  - [5. Service Availability](non-functional/5_service_availability.md)
+  - [6. Data Availability](non-functional/6_data_availability.md)
+
+# API Specification
+
+- [Overview](api/README.md)
+  - [1. Integration Paths](api/1_integration_paths.md)s
+  - [2. Smart Contracts](api/2_smart_contracts.md)
+  - [3. REST API](api/3_REST.md)
+  - [4. gRPC](api/4_gRPC.md)
+
+# Case Studies
+
+- [Overview](case-studies/README.md)
+  - [1. Privacy Pool](case-studies/1_privacy_pool.md)
 
 
 -----------
-
-[**Contributors**](misc/1_contributors.md)
+[**Changelogs**](misc/VERSION.md)
+[**Appendix**](misc/APPENDIX.md)
+[**Contributors**](misc/CONTRIBUTORS.md)
