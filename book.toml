@@ -1,0 +1,35 @@
+[book]
+authors = ["0xbow.io"]
+language = "en"
+multilingual = false
+src = "content"
+title = "ASP Spec V1.0"
+description = "Specifications of the `association-provider service` also known as ASP."
+
+# KaTeX support
+[preprocessor.katex]
+after = ["links"]
+
+# Mermaid support
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+# Table of Contents Support
+[preprocessor.toc]
+command = "mdbook-toc"
+renderer = ["html"]
+
+[output]
+
+[output.html]
+##additional-css = []
+##additional-js = []
+git-repository-url = "https://github.com/0xbow-io/asp-spec-V1.0"
+git-repository-icon = "fa-github-alt"
+no-section-label = true
+default-theme = "rust"
+preferred-dark-theme = "navy"
+
+
+[output.html.fold]
+enable = true
