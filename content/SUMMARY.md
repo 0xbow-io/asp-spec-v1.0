@@ -15,7 +15,7 @@
   - [Association Set](data-models/3_association_set.md)
 
 - [Functional Specifications](data-models/OVERVIEW.md)
-  - [Record Integration](functional/1_record_aggregation.md)
+  - [Record Aggregation](functional/1_record_aggregation.md)
   - [Record Categorization](functional/2_record_categorization.md)
   - [Computing Membership Proofs](functional/3_membership_proofs_computation.md)
   - [Creating Association Sets](functional/4_association_sets_creation.md)
