@@ -1,0 +1,16 @@
+:root {
+    --content-max-width: 80%; /* Increase this value to make the content wider */
+    --sidebar-width: 300px; /* Adjust this if needed */
+    --page-padding: 15px; /* Reduce this value to decrease left and right margins */
+}
+
+.content {
+    max-width: var(--content-max-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.d2-diagram svg {
+    width: 100%;
+    height: auto;
+}
