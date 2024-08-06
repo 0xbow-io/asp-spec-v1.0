@@ -26,7 +26,7 @@ jobs:
       MDBOOK_TOC_VERSION: 0.14.2
       MDBOOK_FOOTNOTE_VERSION: 0.1.1
       MDBOOK_ADMONISH_VERSION: 1.18.0
-      MDBOOK_MERMAID_VERSION: 0.71
+      MDBOOK_MERMAID_VERSION: 0.7.1
       MDBOOK_D2_VERSION: 0.2.2
     steps:
       - uses: actions/checkout@v4
