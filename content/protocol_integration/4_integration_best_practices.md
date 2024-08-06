@@ -1,8 +1,7 @@
 # 3.4 Integration Best Practices
 
 ```admonish tip
-View this [section]((path_to_integration/asp/1_how_to_register)) for guidance on ASP integration.
-Or visit
+To see all possible integrations with the ASP see this [section](/path_to_integration/networks/2_integration_options.md).
 ```
 
 When integrating a protocol with the ASP system, consider the following best practices:

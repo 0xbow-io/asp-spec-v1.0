@@ -1,12 +1,9 @@
 # 4.4 Performance Considerations
 
-Feature extraction can be computationally intensive,
-especially for complex protocols or high-volume chains.
+Feature extraction can be computationally intensive and difficult to scale.
+Optimization strategies have been considered to ensure that feature extraction is efficient and scalable.
 
-Consider the following optimizations:
-
-1. **Parallel Processing**: Implement parallel feature extraction for independent features.
-
+1. **Parallel Processing**: Parallel & distributed feature extraction for independent features.
 
 ```mermaid
 
@@ -60,19 +57,15 @@ title: "Figure 4.1: Distributed Parallel Feature Extractors"
      E --> H
      G --> H
      H --> I[Feature Set]
-  ```
+```
 
+2. **Caching**: Caching of intermediate results for frequently accessed data.
 
-2. **Caching**: Cache intermediate results for frequently accessed data.
+3. **Optimized Data Structures**: Optimise schemas to allow efficient data structures for feature representation and manipulation.
 
-3. **Incremental Extraction**: For features that depend on historical data, implement incremental updates rather than
-   recomputing from scratch.
+4. **Batched Processing**: Process multiple records in batches to amortize overhead costs.
 
-4. **Optimized Data Structures**: Use efficient data structures for feature representation and manipulation.
-
-5. **Batched Processing**: Process multiple records in batches to amortize overhead costs.
-
-6. **Feature Selection**: Carefully select features that provide the most discriminative power for downstream tasks.
+5. **Feature Selection**: Features selected carefully to provide the most discriminative power for downstream tasks.
 
 Performance can be quantified using the following metrics:
 

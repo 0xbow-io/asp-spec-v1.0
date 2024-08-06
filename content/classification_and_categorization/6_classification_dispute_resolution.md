@@ -1,10 +1,8 @@
 # 5.6 Classification Dispute Resolution
 
-
-In cases where multiple feature extractors or classification rules lead to conflicting categorizations, a dispute resolution process is necessary.
-
 ### Dispute Resolution Process
 
+A dispute resolution process is necessary to handle conflicting categories:
 
 ```mermaid
 
@@ -53,10 +51,10 @@ graph TD
     B --> C[Analyze Record and Proofs]
     C --> D[Committee Voting]
     D --> E{Majority Decision?}
-    E -->|Yes| F[Update Classification]
+    E -->|Yes| F[Update Categories]
     E -->|No| G[Extended Deliberation]
     G --> D
-    F --> H[Refine Classification Rules]
+    F --> H[Refine Classification Process]
 ```
 
 1. **Detection**: Automated systems identify conflicting classifications for the same record.

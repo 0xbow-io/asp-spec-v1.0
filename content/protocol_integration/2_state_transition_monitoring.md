@@ -1,7 +1,8 @@
 # 3.2 State Transition Monitoring
 
 ```admonish note Title="How to Register"
-To register a protocol, please view the steps outlined in the ["For Onchain Protocols"](path_to_integration/asp/1_how_to_register) section.
+To register a protocol, please view the steps
+outlined in the ["For Onchain Protocols"](/path_to_integration/protocols/1_how_to_register.md) section.
 ```
 
 State transition monitoring involves observing the blockchain for relevant events
@@ -70,7 +71,7 @@ sequenceDiagram
       STD->>STD: Discard
     end
 
-````
+```
 
 The process follows these steps:
 

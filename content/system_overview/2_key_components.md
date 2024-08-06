@@ -5,7 +5,7 @@
 ### 2.2.1.i. Observer:
 
 ```admonish info
-Visit the [protocol integration](/content/protocol_integration/1_protocol_requirements.md) section for more details on
+Visit the [protocol integration](/protocol_integration/1_protocol_requirements.md) section for more details on
 Protocol $\leftrightarrows$ ASP integration.
 ```
 
@@ -471,23 +471,23 @@ cat -> bit: "B"  {
 
 ```
 
-The Category Pipeline is the sequential execution of the following routines:
+The Category Pipeline is the sequential execution of:
 
-1. **Feature Extractors**: Routines that Analyzes records to extract relevant features for classification.
+1. **Feature Extractors**: Analyzes records to extract relevant features for classification.
 
-2. **Classifiers**: Routines which generates categories for records through rule-based computation over extracted feature sets.
+2. **Classifiers**: Categories records based on extracted feature sets.
 
-3. **Categorizers**: Routines that geenerates a 256-bit category bitmap for each classified record.
+3. **Categorizers**: Generates a 256-bit category bitmap to reflect the record's category/s
 
 ### 2.2.1.iii. On-Chain Instances:
 
 ```admonish info
-Visit the [public registry](/content/public_registry/1_smart_contract_specification.md) section for more details.
+More details can be found in the [public registry](/public_registry/1_smart_contract_specification.md) section.
 ```
 
-7. **Public Registry**: On-chain smart contract storing record hashes and category bitmaps.
+7. **Public Registry**: Set of on-chain smart contracts for storing & querying ASP onchain data.
 
-The on-chain public registry supports on-chain intergration with the ASP, allowing for the following:
+The onchain public registry supports on-chain intergration with the ASP, allowing for the following:
 
 - Generation of Association Sets whilst preserving end-user privacy.
 - Direct integration with protocol contracts for compliance verification.

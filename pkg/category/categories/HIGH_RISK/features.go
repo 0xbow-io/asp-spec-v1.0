@@ -15,7 +15,7 @@ const (
 var _ Feature = (*_Feature)(nil)
 
 func (f _Feature) T() FeatureType {
-	return FeatureType{Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Object)}
+	return FeatureType{Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Number)}
 }
 
 func (f _Feature) Feature() Feature {
@@ -31,6 +31,7 @@ func (f _Feature) Attributes() []interface{} {
 		{
 			name:             f.String(),
 			required:         "true",
+			_type:            "number",
 			examples:         "1000.1",
 			pattern:          "",
 			_default:         0.0,
@@ -41,6 +42,7 @@ func (f _Feature) Attributes() []interface{} {
 		},
 		{
 			name:             f.String(),
+			_type:            "number",
 			required:         "true",
 			examples:         "1000.1",
 			pattern:          "",

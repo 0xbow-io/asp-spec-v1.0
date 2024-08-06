@@ -15,6 +15,6 @@ var HIGH_RISK_CATEGORY = new(CategorySchema).Create(
 	"HIGH_RISK",
 	"Category for records associated to illicit activities",
 	[]Feature{
-		_DIRECT_SANCTIONED_ENTITY_EXPOSURE.Feature(),
-		_INDIRECT_SANCTIONED_ENTITY_EXPOSURE.Feature(),
+		Feature(_DIRECT_SANCTIONED_ENTITY_EXPOSURE),
+		Feature(_INDIRECT_SANCTIONED_ENTITY_EXPOSURE),
 	})

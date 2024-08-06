@@ -5,52 +5,24 @@
 
 ### Key components of Verifiable Classification:
 
+```admonish warning Title="Work in Progress"
+**The specific implementation of the ZKP system is WIP**
+```
+
 1. **Zero-Knowledge Proof Generation**:
 
-   The ASP generates a ZKP proving:
+The classification process is to be implemented with zero-knoweldge DSL (i.e. Circom). This allows
+the ASP to generate a computation proof which verifies that the classification was done correctly
+without revealing the actual features or the feature extractor code.
 
-   - Correct application of classification rules to extracted features
-   - Relevance of extracted features to the specific record
-   - Correct utility of feature extractor
-   - Verification of any data sourced externally that were used in feature extraction (i.e proof of payload origin)
+Current thoughts on the approach:
 
-   ```admonish info Title="ZKP Implementation"
-   **The specific implementation of the ZKP system is WIP**.
-
-   Here are the current thoughts on the implementation:
-   - Encoding of all possible Feature Types and Names and associated feature-extractors Values a
-    with a 254bit-map (Feature Space), i.e:
-      - 4 bits to encode Feature Types, i.e.:
-        - CATEGORICAL: 0001
-        - BOOLEAN: 0010
-        - INT: 0011
-        - FLOAT: 0100
-        - STRING: 0101
-        - BYTES: 0110
-        - TIMESTAMP: 0111
-      - 8 bits to encode identifiers of feature-extractors, i.e.:
-        - AML: 00000001
-        - SOURCE_OF_ASSET: 00000010
-      - 64 bits to encode Feature Name constants:
-        - ILLICT_EXPOSURE = 0x0000000000000001
-      - 180 bits to encode unsigned Feature Values.
-   - Category Space (all possible categories) are also encoded with a bitmap.
-   - Classification rules can be expressed as a circuit of logical gates mapping Feature Space to Category Space.
-      - Correctness of logical operations proven with Zk (i.e. Circom circuits).
-      - Modular design allows for easy addition of new rules.
-      - Zk Circuit operate on a private input of encoded Feature.
-   - Feature Documents can be represented as a Merkle Tree (Feature Tree) using the Feature Space encoding.
-      - As suggested in section [4.2 Feature Types and Formats](feature_extraction/2_feature_types_and_formats.md)
-      - Feature Extractors can generate a signature over the Merkle Root of the Feature Tree.
-    - Classificaation rules can be expressed as logical expressions in a zk-circuit (i.e. Circom circuit)
-      - Assume at least 1 circuit per classifier.
-      - Receive
-
-    - Classifiers can generate:
-      - Merkle-proofs of features against the Feature Tree used in classificatio (Feature Proof).
-      - Merkle-proof of the category against the Category Tree (Category Proof).
-    - Categorizers
-   ```
+- Auto-Generate Circom Templates based on the category-feature schema.
+  - At least 1 circuit per category.
+- Utilise folding schemes (i.e. NOVA) with libraries such as [Sonobe](https://github.com/privacy-scaling-explorations/sonobe)
+  - The bitmap is the shared state between all steps
+  - Each step is 1 classification that sets the appropriate bit in the bitmap
+  - 1 public output at the final step which is the final bitmap.
 
 2. **On-chain Attestations**:
 
@@ -60,7 +32,3 @@ on-chain through attestation channels such as [EAS](https://attest.org/).
 3. **Proof Verification**:
 
 External parties can verify the ZKP without accessing private features or extractor code.
-
-```
-
-```

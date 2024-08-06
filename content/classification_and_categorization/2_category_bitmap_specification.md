@@ -1,6 +1,7 @@
 # 5.2 Category Bitmap Specification
 
-The category bitmap is a 256-bit vector where each bit represents a specific category. This compact representation allows for efficient storage and querying of categorized records.
+Categories are mapped to a 256-bit vector where each bit represents a specific category.
+This compact representation allows for efficient storage and querying of categorized records.
 
 The bitmap is defined as:
 
@@ -17,3 +18,4 @@ For example:
 - Bits 192-255: Cross-protocol interactions
 
 The bitmap can be efficiently stored and manipulated using 256-bit integer types or a byte array of size 32 (32 bytes).
+To support sclability, external bitmaps are referrable in other bitmaps through bit pointers or a bitmap index.

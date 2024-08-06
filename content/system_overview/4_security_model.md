@@ -9,11 +9,11 @@ The ASP security model is based on the following principles:
 
 1. **Immutability**: The Public Registry is append-only and immutable, ensuring the integrity of stored records.
 
-2. **Privacy**: Zero-knowledge proofs enable compliance verification without revealing sensitive transaction details.
+2. **Privacy**: Zero-knowledge proofs enable compliance verification without revealing sensitive details.
 
 3. **Decentralization**: The system operates across multiple protocols and doesn't rely on a single point of trust.
 
-4. **Access Control**: Strict write policies prevent unauthorized modifications to the Public Registry.
+4. **Access Control**: Strict policies to prevent unauthorized modifications to the Public Registry.
 
 5. **Cryptographic Integrity**: All records and proofs are cryptographically secured.
 ```
@@ -26,11 +26,11 @@ The ASP security model is based on the following principles:
 
 **Key security considerations include:**
 
-1. **Sybil Resistance**: The system must be resistant to Sybil attacks on the Watcher.
+1. **Sybil Resistance**: The system must be resistant to Sybil attacks on any of it's components.
 
-2. **Front-Running Protection**: Measures to prevent front-running of compliance proofs in the on-chain components.
+2. **Front-Running Protection**: Measures to prevent front-running of compliance proofs.
 
 3. **Privacy Leakage**: Careful design & implementation of Interfaces & communication channels to prevent
-  inadvertent privacy leaks through query patterns or request origin traces.
+   inadvertent privacy leaks through query patterns.
 
 4. **Upgrade Security**: Secure processes for updating classification rules and compliance policies.

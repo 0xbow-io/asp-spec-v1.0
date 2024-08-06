@@ -18,8 +18,9 @@ func (s *CategorySchema) MarshalJSON() ([]byte, error) {
 func (s *CategorySchema) applyFeatures(features []Feature) {
 	for i, feature := range features {
 		// add the feature schema to the array
-		s.Schema.Properties["features"].TypeObject.Items.SchemaArray[i] = jsonschema.SchemaOrBool{TypeObject: feature.Schema()}
-		s.Schema.Properties["features"].TypeObject.Required = append(s.Schema.Properties["features"].TypeObject.Required, feature.String())
+		s.Schema.Properties["features"].TypeObject.Items.SchemaArray[i] =
+			jsonschema.SchemaOrBool{TypeObject: feature.Schema()}
+		s.Schema.Properties["features"].TypeObject.Required[i] = feature.String()
 	}
 }
 
