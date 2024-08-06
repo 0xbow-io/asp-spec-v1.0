@@ -26,6 +26,8 @@ jobs:
       MDBOOK_TOC_VERSION: 0.14.2
       MDBOOK_FOOTNOTE_VERSION: 0.1.1
       MDBOOK_ADMONISH_VERSION: 1.18.0
+      MDBOOK_MERMAID_VERSION: 0.71
+      MDBOOK_D2_VERSION: 0.2.2
     steps:
       - uses: actions/checkout@v4
       - name: Install mdBook
@@ -37,6 +39,8 @@ jobs:
           cargo install --version ${MDBOOK_TOC_VERSION} mdbook-toc
           cargo install --version ${MDBOOK_FOOTNOTE_VERSION} mdbook-footnote
           cargo install --version ${MDBOOK_ADMONISH_VERSION} mdbook-admonish
+          cargo install --version ${MDBOOK_MERMAID_VERSION} mdbook-mermaid
+          cargo install --version ${MDBOOK_D2_VERSION} mdbook-d2 --locked
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5

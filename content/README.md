@@ -8,7 +8,7 @@
 
 ## 1. Specification Overview
 
-  ## [1.1 System Architecture](system-architecture/README.md)
+  ## [1.1 System Overview](system-overview/README.md)
 
   ## [1.2 Data Models](data-models/README.md)
 
@@ -22,4 +22,4 @@
 
 | **Protocol** | **Version** | **Repository** | **Status** |
 |---------|--------------|---------|---------|
-| [Privacy Pool](case-studies/1_privacy_pool.md) | V1.0 | [privacy-pools-v1](https://github.com/0xbow-io/privacy-pools-v1) | WIP |
+| [Privacy Pool](content/case-studies/1_privacy_pool.md) | V1.0 | [privacy-pools-v1](https://github.com/0xbow-io/privacy-pools-v1) | WIP |

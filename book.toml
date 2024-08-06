@@ -3,12 +3,26 @@ authors = ["0xbow.io"]
 language = "en"
 multilingual = false
 src = "content"
-title = "ASP Spec V1.0"
-description = "Specifications of the `association-provider service` also known as ASP."
+title = "ASP Specifications v1.0.0-alpha"
+description = "Specifications of 0xBow.io ASP service"
 
 # KaTeX support
 [preprocessor.katex]
 after = ["links"]
+output = "html"
+leqno = false
+fleqn = false
+throw-on-error = true
+error-color = "#cc0000"
+min-rule-thickness = -1.0
+max-size = "Infinity"
+max-expand = 1000
+trust = false
+no-css = false
+include-src = false
+block-delimiter = { left = "$$", right = "$$" }
+inline-delimiter = { left = "$", right = "$" }
+pre-render = true
 
 # Table of Contents Support
 [preprocessor.toc]
@@ -27,17 +41,27 @@ assets_version = "3.0.2" # do not edit: managed by `mdbook-admonish install`
 [preprocessor.catppuccin]
 assets_version = "2.1.0" # DO NOT EDIT: Managed by `mdbook-catppuccin install`
 
+[preprocessor.d2]
+path = "d2"
+layout = "elk"
+inline = true
+output-dir = "d2"
+
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
 [output]
 
 [output.html]
-additional-css = ["./theme/catppuccin.css", "./theme/catppuccin-admonish.css"]
-##additional-js = []
+additional-css = ["./theme/mdbook-admonish.css","./theme/catppuccin.css", "./theme/catppuccin-admonish.css"]
+additional-js = ["./theme/mermaid.min.js", "./theme/mermaid-init.js", "./theme/solidity.min.js"]
 git-repository-url = "https://github.com/0xbow-io/asp-spec-V1.0"
 git-repository-icon = "fa-github-alt"
 no-section-label = true
-default-theme = "rust"
-preferred-dark-theme = "navy"
-mathjax-support = true
+default-theme = "mocha"
+preferred-dark-theme = "mocha"
 
 [output.html.fold]
 enable = true
+level = 1
