@@ -37,13 +37,15 @@ jobs:
           rustup update
           curl -fsSL https://d2lang.com/install.sh | sh -s --
           cargo install --version ${MDBOOK_VERSION} mdbook
+          cargo install --version ${MDBOOK_ADMONISH_VERSION} mdbook-admonish
+          mdbook-admonish install
+          cargo install --version ${MDBOOK_CATPPUCCIN} mdbook-catppuccin
+          mdbook-catppuccin install
+          cargo install --version ${MDBOOK_MERMAID_VERSION} mdbook-mermaid
+          cargo install --version ${MDBOOK_D2_VERSION} mdbook-d2 --locked
           cargo install --version ${MDBOOK_KATEX_VERSION} mdbook-katex
           cargo install --version ${MDBOOK_TOC_VERSION} mdbook-toc
           cargo install --version ${MDBOOK_FOOTNOTE_VERSION} mdbook-footnote
-          cargo install --version ${MDBOOK_ADMONISH_VERSION} mdbook-admonish
-          cargo install --version ${MDBOOK_MERMAID_VERSION} mdbook-mermaid
-          cargo install --version ${MDBOOK_D2_VERSION} mdbook-d2 --locked
-          cargo install --version ${MDBOOK_CATPPUCCIN} mdbook-catppuccin
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
