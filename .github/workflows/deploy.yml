@@ -28,6 +28,7 @@ jobs:
       MDBOOK_ADMONISH_VERSION: 1.18.0
       MDBOOK_MERMAID_VERSION: 0.7.1
       MDBOOK_D2_VERSION: 0.2.2
+      MDBOOK_CATPPUCCIN: 2.1.0
     steps:
       - uses: actions/checkout@v4
       - name: Install mdBook
@@ -42,6 +43,7 @@ jobs:
           cargo install --version ${MDBOOK_ADMONISH_VERSION} mdbook-admonish
           cargo install --version ${MDBOOK_MERMAID_VERSION} mdbook-mermaid
           cargo install --version ${MDBOOK_D2_VERSION} mdbook-d2 --locked
+          cargo install --version ${MDBOOK_CATPPUCCIN} mdbook-catppuccin
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
