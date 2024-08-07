@@ -217,21 +217,21 @@ asp: {
 
 ```
 
-> "**The core idea of Privacy Pools is this:**
+> **The core idea of Privacy Pools is this:**
 >
-> Instead of merely zero-knowledge-proving that their withdrawal is
+> Instead of merely proving that their withdrawal is
 > linked to some previously-made deposit, a user proves membership in a more restrictive association set.
-> The association set could be the full subset of previously-made deposits, a set consisting only of the user's
-> own deposit, or anything in between ...
+> This association set could be the full subset of previously-made deposits, a set consisting only of the user's
+> own deposits, or anything in between ...
 >
-> Rather, users will subscribe to intermediaries, which we can call `association set providers (ASPs)`,
+> Users will subscribe to intermediaries, called `association set providers (ASPs)`,
 > which generate association sets that have certain properties" [^note]
 
 The 0xBow ASP system is an implementation of the ASP concept initially introduced for Privacy Pool but now exteded to
 facilitate compliance mechanisms across multiple blockchain protocols.
 
 It's architecture is relatively simple and consists of two main components:
-- `Service Stack`: 2 modular services that are working in concert to monitor, classify and verify state transitions.
+- `Service Stack`: 2 modular services that are working in concert to monitor, classify, and verify state transitions.
 - `On-Chain Instances`: Components supporting onchain integrations with the ASP.
 
 [^note]:

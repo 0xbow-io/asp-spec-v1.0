@@ -26,7 +26,7 @@ The ASP security model is based on the following principles:
 
 **Key security considerations include:**
 
-1. **Sybil Resistance**: The system must be resistant to Sybil attacks on any of it's components.
+1. **Sybil Resistance**: All system components must be resistant to Sybil attacks.
 
 2. **Front-Running Protection**: Measures to prevent front-running of compliance proofs.
 

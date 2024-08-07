@@ -17,7 +17,7 @@ framework for implementing and operating or integrating with the ASP system
 The ASP is designed to support compliance mechanisms for blockchain protocols, enabling
 the verification of compliance with regulatory requirements and business rules.
 
-The ASP system aims to enable `privacy-preserving compliance` for blockchain protocols such
+It aims to enable `privacy-preserving compliance` for blockchain protocols such
 as Privacy Pool, by leveraging zero-knowledge proofs (ZKPs) and
 efficient data categorization techniques.
 
@@ -43,7 +43,7 @@ See below to find the section that best suits your needs.
 
 - ### Association Set Provider (ASP) Architecture:
 
-  - Begin freading from [2.1 ASP Architecture](../system_overview/1_asp_architecture.md) to
+  - Begin reading from [2.1 ASP Architecture](../system_overview/1_asp_architecture.md) to
     understand the ASP architecture and its components.
 
 - ### 0xBow ASP Developments:
@@ -54,7 +54,7 @@ See below to find the section that best suits your needs.
 
 - ### Integrating a protocol with the ASP:
 
-  - To get started with integrating a protocol with the ASP and vice versa, access the
+  - To get started with integrating a protocol with the ASP, access the
     [Protocol Integration](../protocol_integration/1_protocol_requirements.md) section.
 
   - For technical context on protocol-level integrations, refer to

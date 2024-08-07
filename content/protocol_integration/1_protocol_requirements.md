@@ -38,6 +38,6 @@ For a protocol to integrate with the ASP system, it must satisfy the following r
 
 3. **Observable State**: The protocol must expose sufficient information to reconstruct its state at any given epoch.
 
-4. **Unique Identifiers**: Each protocol instance must have   a unique identifier computable by the $Scope$ function.
+4. **Unique Identifiers**: Each protocol instance must have a unique identifier computable by the $Scope$ function.
 
 5. **Event Emission**: The protocol should emit events for all state-changing operations to facilitate efficient monitoring.
