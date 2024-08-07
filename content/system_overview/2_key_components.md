@@ -247,12 +247,12 @@ Protocol -> obs: "s'" {
 The Observer is a service that monitors & records the state-changes of specific protocols in real-time.
 It is comprised of the following modules:
 
-1. **Watcher**: Watches the network for signals (i.e. event emissions) by protocols that indicate a state-change has occured.s
+1. **Watcher**: Watches the network for signals (e.g. event emissions) by protocols that indicate a state-change has occured.
 
-   It requires protocol-specific components ( `adapter` & a `parser` ) in order to interface with the protocol
+   It requires protocol-specific components ( `adapter` & `parser` ) in order to interface with the protocol
    at the network level.
 
-   It is possible to have a 1 to 1 implementation of the `watcher` module for each protocol.
+   It is possible to have a 1 to 1 implementation of the `watcher` module for each protocol,
    or a single `watcher` module that can be configured to monitor multiple protocols via pluggable adapters & parsers.
 
 2. **State Transition Detector**: Identifies and validates the state transitions signalled by the `watcher` module.
@@ -281,7 +281,7 @@ It is comprised of the following modules:
    - Where $h$ & $h'$ is computed by a state-hash function: $H(s, e) \rightarrow h$
    - $h \not = h'$
 
-### 2.2.1.ii. Category Engine:
+### 2.2.1.ii. Categorization Engine:
 
 ```admonish info
 The `Categorization Engine` is crucial to the ASP's ability in supporting compliance mechanisms & allow end-users to generate
@@ -475,7 +475,7 @@ The Category Pipeline is the sequential execution of:
 
 1. **Feature Extractors**: Analyzes records to extract relevant features for classification.
 
-2. **Classifiers**: Categories records based on extracted feature sets.
+2. **Classifiers**: Categorizes records based on extracted feature sets.
 
 3. **Categorizers**: Generates a 256-bit category bitmap to reflect the record's category/s
 
@@ -484,6 +484,7 @@ The Category Pipeline is the sequential execution of:
 ```admonish info
 More details can be found in the [public registry](/public_registry/1_smart_contract_specification.md) section.
 ```
+
 
 7. **Public Registry**: Set of on-chain smart contracts for storing & querying ASP onchain data.
 
