@@ -21,11 +21,14 @@ body:
       default: 0
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: integrationTarget
     attributes:
       label: Integration Target
       description: What is the name of the system you are requesting integration for?
+      placeholder: ex. Protocol X
+    validations:
+      required: false
   - type: dropdown
     id: involvementType
     attributes:
