@@ -1,6 +1,8 @@
 package highRiskCat
 
 import (
+	"fmt"
+
 	. "github.com/0xbow-io/asp-spec-V1.0/pkg/feature"
 	"github.com/swaggest/jsonschema-go"
 )
@@ -8,14 +10,29 @@ import (
 type _Feature uint
 
 const (
-	_DIRECT_SANCTIONED_ENTITY_EXPOSURE _Feature = iota
-	_INDIRECT_SANCTIONED_ENTITY_EXPOSURE
+	OFAC_LIST_MEMBERSHIP _Feature = iota
+	FATF_LIST_MEMBERSHIP
+	TRANSACTION_AMOUNT
 )
 
 var _ Feature = (*_Feature)(nil)
 
 func (f _Feature) T() FeatureType {
-	return FeatureType{Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Number)}
+	switch f {
+	case OFAC_LIST_MEMBERSHIP:
+		return FeatureType{
+			Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Boolean),
+		}
+	case FATF_LIST_MEMBERSHIP:
+		return FeatureType{
+			Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Boolean),
+		}
+	case TRANSACTION_AMOUNT:
+		return FeatureType{
+			Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Number),
+		}
+	}
+	return FeatureType{Type: new(jsonschema.Type)}
 }
 
 func (f _Feature) Feature() Feature {
@@ -23,52 +40,37 @@ func (f _Feature) Feature() Feature {
 }
 
 func (f _Feature) String() string {
-	return [...]string{"DIRECT_SANCTIONED_ENTITY_EXPOSURE", "INDIRECT_SANCTIONED_ENTITY_EXPOSURE"}[f]
+	return [...]string{
+		"OFAC_LIST_MEMBERSHIP",
+		"FATF_LIST_MEMBERSHIP",
+		"TRANSACTION_AMOUNT",
+	}[f]
 }
 
 func (f _Feature) Attributes() []interface{} {
 	return [...][]interface{}{
 		{
-			name:             f.String(),
-			required:         "true",
-			_type:            "number",
-			examples:         "1000.1",
-			pattern:          "",
-			_default:         0.0,
-			maximum:          0.0,
-			exclusiveMinimum: 0.0,
-			minimum:          1000000.01,
-			exclusiveMaximum: 0.0,
+			required: "true",
+			_default: true,
 		},
 		{
-			name:             f.String(),
-			_type:            "number",
-			required:         "true",
-			examples:         "1000.1",
-			pattern:          "",
-			_default:         0.0,
-			maximum:          0.0,
-			exclusiveMinimum: 0.0,
-			minimum:          1000000.01,
-			exclusiveMaximum: 0.0,
+			required: "true",
+			_default: true,
+		},
+		{
+			required: "true",
+			_default: true,
 		},
 	}[f]
 }
 
-func (f _Feature) Schema() (schema *jsonschema.Schema) {
-	id := f.String()
+func (f _Feature) Schema(idPrefix string) (schema *jsonschema.Schema) {
+	id := fmt.Sprintf("%s:features:%s", idPrefix, f.String())
 	schema = &jsonschema.Schema{
 		ID:   &id,
 		Type: f.T().Type,
 	}
-
 	_attributes := f.Attributes()
 	schema.WithDefault(_attributes[_default])
-	schema.WithExamples(_attributes[examples])
-	schema.WithPattern(_attributes[pattern].(string))
-	schema.WithMaximum(_attributes[maximum].(float64))
-	schema.WithExclusiveMaximum(_attributes[exclusiveMaximum].(float64))
-	schema.WithMinimum(_attributes[minimum].(float64))
-
 	return
 }

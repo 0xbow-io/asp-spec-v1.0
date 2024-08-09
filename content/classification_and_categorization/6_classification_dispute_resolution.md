@@ -45,7 +45,6 @@ title: "Figure 5.2: Dispute Resolution Workflow
   }
 }%%
 
-
 graph TD
     A[Conflicting Classification Detected] --> B[Escalate to Committee]
     B --> C[Analyze Record and Proofs]

@@ -1,3 +1,4 @@
+<!-- toc -->
 # 3.1 Protocol Requirements
 
 For a protocol to integrate with the ASP system, it must satisfy the following requirements:
@@ -6,7 +7,9 @@ For a protocol to integrate with the ASP system, it must satisfy the following r
 
    The protocol must be representable as a state machine with the following tuple:
 
-   $$Protocol: StateMachine = (Scope, S, I, O, T, H, V, \Delta S)$$
+  $$
+    Protocol: StateMachine = (Scope, S, I, O, T, H, V, \Delta S)
+  $$
 
    Where:
 

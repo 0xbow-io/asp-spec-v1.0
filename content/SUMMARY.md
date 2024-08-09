@@ -99,7 +99,7 @@
   - [Compliance Predicate](0xbow-asp-v1.0/2_compliance_predicate.md)
   - [Contracts](0xbow-asp-v1.0/3_contracts.md)
   - [API](0xbow-asp-v1.0/4_API.md)
-  - [Roadmap](0xbow-asp-v1.0/5_roadmap.md)
+  - [Development Roadmap](0xbow-asp-v1.0/5_roadmap.md)
 
 - [For Onchain Protocols](path_to_integration/protocols/README.md)
   - [How To Register](path_to_integration/protocols/1_how_to_register.md)

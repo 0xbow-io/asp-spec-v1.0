@@ -12,7 +12,7 @@ type Feature interface {
 	T() FeatureType
 	String() string
 	Attributes() []interface{}
-	Schema() *jsonschema.Schema
+	Schema(idPrefix string) *jsonschema.Schema
 }
 
 type FeatureAttribute interface {
