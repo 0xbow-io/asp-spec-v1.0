@@ -33,7 +33,7 @@ Here is curent TODO list:
 - [ ] Complete [10 Scalability and Performance](../scalability_and_performance/1_sharding_strategies.md)
 - [ ] Complete [11 Security and Auditing](../security_and_auditing/1_threat_model.md)
 - [ ] Complete [12 Governance and Upgrades](../governance_and_upgrades/1_governance_model.md)
-
+- [ ] Complete Integration Guides & End-User Guides
 
 ```
 
@@ -48,14 +48,14 @@ See below to find the section that best suits your needs.
 
 - ### 0xBow ASP Developments:
 
-  - 0xBow ASP [Roadmap](../0xbow-asp-v1.0/4_API.md).
+  - 0xBow ASP [Roadmap](../0xbow-asp-v1.0/5_roadmap.md).
   - View the [API](../0xbow-asp-v1.0/4_API.md) section for current progress of the 0xBow ASP API.
-  - View the [Contracts](../0xbow-asp-v1.0/4_API.md) section for current progress of 0xBow ASP Contracts.
+  - View the [Contracts](../0xbow-asp-v1.0/3_contracts.md) section for current progress of 0xBow ASP Contracts.
 
 - ### Integrating a protocol with the ASP:
 
   - To get started with integrating a protocol with the ASP, access the
-    [Protocol Integration](../protocol_integration/1_protocol_requirements.md) section.
+    [Protocols](../path_to_integration/protocols/1_how_to_register.md) section.
 
   - For technical context on protocol-level integrations, refer to
     [3.1 Protocol Requirements](../protocol_integration/1_protocol_requirements.md).

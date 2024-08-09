@@ -1,13 +1,6 @@
 # 2.2 Key Components
 
-## 2.2.1 Service Stack:
-
-### 2.2.1.i. Observer:
-
-```admonish info
-Visit the [protocol integration](/protocol_integration/1_protocol_requirements.md) section for more details on
-Protocol $\leftrightarrows$ ASP integration.
-```
+## 2.2.1 Observer:
 
 ```d2
 direction: right
@@ -281,23 +274,7 @@ It is comprised of the following modules:
    - Where $h$ & $h'$ is computed by a state-hash function: $H(s, e) \rightarrow h$
    - $h \not = h'$
 
-### 2.2.1.ii. Categorization Engine:
-
-```admonish info
-The `Categorization Engine` is crucial to the ASP's ability in supporting compliance mechanisms & allow end-users to generate
-"Associaiton Sets".
-
-The objective of the categorization is to correctly identify attributes or properties (expressed as categories)
-of the state-transition event which are relevant to the compliance requirements specified by the protocol (or other entities)
-
-Visit the [classification & categorization](/content/classification_and_categorization/1_rule_based_classification.md)
-and [feature extraction](/content/feature_extraction/1_feature_extraction.md) sections for more details on the categorization process.
-```
-
-The Categorization Engine executes a FIFO pipeline of feature-extraction, classification & categorization algorithms
-to categorise the state-transition event referenced by the record $R$.
-
-The output is a 256-bit vector termed "category bitmap" or $B$, where each bit represents a specific category.
+## 2.2.2 Categorization Engine:
 
 ```d2
 direction: right
@@ -471,6 +448,20 @@ cat -> bit: "B"  {
 
 ```
 
+The `Categorization Engine` is crucial to the ASP's ability in supporting compliance mechanisms & allow end-users to generate
+"Associaiton Sets".
+
+The objective of the categorization is to correctly identify attributes or properties (expressed as categories)
+of the state-transition event which are relevant to the compliance requirements specified by the protocol (or other entities)
+
+> Visit the [classification & categorization](/content/classification_and_categorization/1_rule_based_classification.md)
+> and [feature extraction](/content/feature_extraction/1_feature_extraction.md) sections for more details on the categorization process.
+
+The Categorization Engine executes a FIFO pipeline of feature-extraction, classification & categorization algorithms
+to categorise the state-transition event referenced by the record $R$.
+
+The output is a 256-bit vector termed "category bitmap" or $B$, where each bit represents a specific category.
+
 The Category Pipeline is the sequential execution of:
 
 1. **Feature Extractors**: Analyzes records to extract relevant features for classification.
@@ -479,14 +470,11 @@ The Category Pipeline is the sequential execution of:
 
 3. **Categorizers**: Generates a 256-bit category bitmap to reflect the record's category/s
 
-### 2.2.1.iii. On-Chain Instances:
+## 2.2.3 On-Chain Instances:
 
-```admonish info
-More details can be found in the [public registry](/public_registry/1_smart_contract_specification.md) section.
-```
+1. **Public Registry**: Set of on-chain smart contracts for storing & querying ASP onchain data.
 
-
-7. **Public Registry**: Set of on-chain smart contracts for storing & querying ASP onchain data.
+> More details can be found in the [public registry](/public_registry/1_smart_contract_specification.md) section.
 
 The onchain public registry supports on-chain intergration with the ASP, allowing for the following:
 
@@ -494,6 +482,6 @@ The onchain public registry supports on-chain intergration with the ASP, allowin
 - Direct integration with protocol contracts for compliance verification.
 - Serve public input directly to onchain verifies during a transaction that requires compliance verification.
 
-8. **ZKP Verifier**: OnChain component that verifies zero-knowledge proofs of compliance.
+2. **ZKP Verifier**: OnChain component that verifies zero-knowledge proofs of compliance.
 
-   See [Zero-Knowledge Proofs](/content/zero_knowledge_proofs/1_zkp_system_overview.md) section for more details
+> See [Zero-Knowledge Proofs](/content/zero_knowledge_proofs/1_zkp_system_overview.md) section for more details

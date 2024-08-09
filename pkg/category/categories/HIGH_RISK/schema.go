@@ -11,10 +11,14 @@ type _CategorySchema interface {
 	Create(title, description string, features []jsonschema.Field) *CategorySchema
 }
 
-var HIGH_RISK_CATEGORY = new(CategorySchema).Create(
-	"HIGH_RISK",
-	"Category for records associated to illicit activities",
+var AML_COMPLIANT = new(CategorySchema).Create(
+	// Label
+	"AML_COMPLIANT",
+	// title
+	"Record is AML Compliant",
+	// Required Features
 	[]Feature{
-		Feature(_DIRECT_SANCTIONED_ENTITY_EXPOSURE),
-		Feature(_INDIRECT_SANCTIONED_ENTITY_EXPOSURE),
+		Feature(OFAC_LIST_MEMBERSHIP),
+		Feature(FATF_LIST_MEMBERSHIP),
+		Feature(TRANSACTION_AMOUNT),
 	})

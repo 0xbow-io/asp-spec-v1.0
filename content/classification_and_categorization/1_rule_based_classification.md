@@ -15,136 +15,215 @@ or a collaboration of entities such as:
 
 ## 5.1.1 Overview
 
-The ASP follows a rule-based approach in defining categories & it's features and can be summarised as follows:
+The classification process evaluates records with a set of rules to determine it's categories.
 
-### 1. Discovering the Compliance Domain Space:
+The ASP considers that an object `categorized` as $\varGamma_n$ is therefore $\varGamma_n$ `compliant `and must have `satisfied`
+all the `rules` of $\varGamma_n$, i.e.:
 
-The `Compliance Domain Space` $X$ is defined as a set of $x$ where all values of $x$ satisfies compliance Predicate $P(x)$:
+- A transaction is categorised as `AML` compliant because it has satisfied `AML rules` such as `Sender is not in the OFAC list`.
+- A person is categorised as `KYC` compliant because it has satisfied `KYC rules` such as `Person has provided a valid ID`.
+- A vote is categorised as `Valid Vote` because it has satisfied `voting rules` such as `Vote is casted within the voting period`.
+- A document is categorised as `Approved Document` because it has satisfied
+  `document rules` such as `Document is signed & reviewed by an auditor`.
 
-$$\forall x \in X , P(x)$$
+### 1. The Compliance Domain:
 
-For example: $\forall x \in X , P(x)$ = transaction ($x$) is AML compliant.
+Given a `compliance` predicate $P$ and it's propositional function:
+$$P(x,\Gamma) = x \text{ is } \Gamma \text{ compliant }$$
 
-Discovering $X$ would simply require creating a set of transactions that are AML compliant.
+- Where $\Gamma$ is a set of atomic rules:
+  $$\Gamma = \{r_1, r_2, r_3, \ldots, r_n\}$$
 
-### 2. Deriving Compliance Rules:
+$\Gamma$ is considered a `Compliance Domain` only if the following holds true:
 
-Once $X$ is discovered, it is possible to derive the conditional rules that governs $P(x)$ by
-identifying the common properties between all values of $x \in X$.
+$$P(x,\Gamma) \iff \forall r \in \Gamma : r(x) = true$$
+$$P(y,\Gamma) \iff \exists r \in \Gamma : r(y) = false$$
+$$ x \in X, y \in Y, X \subset Z, Y \subset Z$$
 
-For example: $\forall x \in X , P(x)$ = transaction ($x$) is AML compliant.
+Where:
 
-The common properties could be:
+- $x$ is compliant with $\Gamma$ if and only if $x$ satisfies all the rules in $\Gamma$.
+- $y$ is not compliant with $\Gamma$ if and only if $y$ does not satisfy all the rules in $\Gamma$.
+- $X$ is a set of transactions that are compliant with $\Gamma$.
+- $Y$ is a set of transactions that are not compliant with $\Gamma$.
+- $X$ and $Y$ are subsets of the universal set $Z$.
 
-- Transaction amount is less the acceptable threshold defined by the regulatory entity.
-  - Threshold amount is $1000 for AML compliance in the US.
-- Transaction is not from a high-risk country
-  - High-risk country is defined as a country that has been flagged by the regulatory entity
-    - i.e. Receiver & Sender are not in a FATF list.
-- Transaction is not from a high-risk entity
-  - High-risk entity is defined as an entity that has been flagged by the regulatory entity
-    - i.e. Receiver & Sender are not in a OFAC list.
+Example:
 
-Applying a reductionist approach to the common properties, the compliance rules can be simpliefied to:
+If the statements are true:
 
-- Receiver & Sender are not members of the OFAC list
-- Receiver & Sender are not members of the FATF list
-- Transaction amount is less than $1000
+- A set of transactions ($X$) exists such that each transaction ($x$) is AML ($\Gamma$) compliant.
+- A set of transactions ($Y$) exists such that each transaction ($y$) is not AML ($\Gamma$) compliant.
+- $X$ and $Y$ belong to a super set of transactions $Z$.
+
+Then `Compliance Domain` ($\Gamma$) exists as a set of rules for
+which holds true for all transactions in $X$ and false for all transactions in $Y$.
+
+### 2. Defining Compliance Rules:
+
+By identifiying ($\Gamma$) and set $X$ & $Y$
+it is then possible to derive the compliance rules which governs $P$:
+
+$$\Gamma = \{r_1, r_2, r_3, \ldots, r_n\}$$
+
+- I.e., The rules for `AML` compliance could be:
+
+  - Sender & receiver is not in the OFAC list
+  - Sender & receiver is not in the FATF list
+  - Transaction amount is less than 1000 USD.
+
+- These rules are verified against a set of:
+  - `AML` compliant transactions ($X$)
+  - `non-AML` compliant transactions ($Y$).
+
+```admonish tip Title='Keep it simple'
+
+Rules should be represented as `atomic` & `independent` and therefore avoid any:
+
+- Representations indicating hierarchical structure of rulesi.e.:
+  - $R:$ Transaction is not from a sanctioned entity
+    - $r_i:$ Sender is not in the OFAC list
+
+- Representations indicating dependencies between rules i.e.:
+  - $R:$ Transaction is not from a sanctioned entity
+    - $r_i:$ Sender is not in the OFAC list
+    - $r_j:$ Sender is not in the FATF list
+
+
+```
 
 ### 2. Deriving Categories:
 
-The Category is a translation of the compliance predicate $P(x)$, i.e. "AML compliant" and its' features are
-the compliance rules that governs $P(x)$. As shown in section
-[4.2 Feature Types and Formats](/feature_extraction/1_feature_extractor_interface.md), this translation is
-conveyed in the form of a `JSON Schema` document such as:
+A category is a translation of $P(x,\Gamma)$ where`features` & `thresholds`
+represents the atomic rules $r_i$ of $\Gamma$:
+
+- $\Gamma:$ `AML`
+  - Category: `AML_COMPLIANT`
+- $r_1:$ Sender & receiver is not in the OFAC list
+  - Feature: `OFAC_LIST_MEMBERSHIP`
+  - Threshold: `false`
+  - `OFAC_LIST_MEMBERSHIP` is `false` for a record.
+- $r_1:$ Sender & receiver is not in the FATF list
+  - Feature: `FATF_LIST_MEMBERSHIP`
+  - Threshold: `false`
+  - `FATF_LIST_MEMBERSHIP` is `false` for a record.
+- $r_1:$ Transaction amount is less than 1000 USD.
+  - Feature: `TRANSACTION_AMOUNT`
+  - Threshold: `1000`
+  - `TRANSACTION_AMOUNT` is less than `1000` for a record.
+
+This translation (see [4.2 Feature Types and Formats](/feature_extraction/1_feature_extractor_interface.md)) results in a
+`JSON Schema` document such as:
 
 ```json
 {
-  "$id": "AML_COMPLIANT",
-  "description": "Category for AML compliance",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "tag:0xbow.io,2024:categories:AML_COMPLIANT",
+  "title": "Record is AML Compliant",
+  "type": "object",
   "properties": {
     "features": {
-      "items": [
-        {
-          "$id": "OFAC_LIST_MEMBERSHIP",
-          "default": true,
-          "examples": ["false"],
-          "maximum": true,
-          "minimum": false,
-          "pattern": "",
-          "type": "boolean"
+      "type": "object",
+      "properties": {
+        "OFAC_LIST_MEMBERSHIP": {
+          "$id": "tag:0xbow.io,2024:categories:AML_COMPLIANT:features:OFAC_LIST_MEMBERSHIP",
+          "type": "boolean",
+          "default": "true"
         },
-        {
-          "$id": "FATF_LIST_MEMBERSHIP",
-          "default": true,
-          "examples": ["false"],
-          "maximum": true,
-          "minimum": false,
-          "pattern": "",
-          "type": "number"
+        "FATF_LIST_MEMBERSHIP": {
+          "$id": "tag:0xbow.io,2024:categories:AML_COMPLIANT:features:FATF_LIST_MEMBERSHIP",
+          "type": "boolean",
+          "default": "true"
         },
-        {
-          "$id": "TRANSACTION_AMOUNT",
-          "default": 3000000,
-          "examples": ["1000"],
-          "maximum": 1000,
-          "minimum": 0,
-          "pattern": "",
-          "type": "number"
+        "TRANSACTION_AMOUNT": {
+          "$id": "tag:0xbow.io,2024:categories:AML_COMPLIANT:features:TRANSACTION_AMOUNT",
+          "type": "integer",
+          "default": "1000"
         }
-      ],
-      "required": ["OFAC_LIST_MEMBERSHIP", "FATF_LIST_MEMBERSHIP"],
-      "type": "array"
+      },
+      "required": [
+        "OFAC_LIST_MEMBERSHIP",
+        "FATF_LIST_MEMBERSHIP",
+        "TRANSACTION_AMOUNT"
+      ]
     }
+  },
+  "required": ["features"]
+}
+```
+
+```admonish note Title='Feature Types'
+
+Features can be considered as the properties or attributes of a record which is later
+evaluated against the compliance rules.
+
+i.e. The rule `Sender & receiver is not in the OFAC list` evaluates
+the value of 'OFAC_LIST_MEMBERSHIP' which is of a `boolean` type.
+
+There are no constraints on the type of features that can be used in the schema.
+It could be a `string`, `integer`, `boolean`, `array`, `object` etc.
+
+However it should not include or point/reer to another feature
+nor be a function of another feature.
+
+```
+
+### 3. Classifying a record :
+
+**Note that default values are set to invalidate the category for the record.**
+
+The `default` document is a document which satisfy the Schema but where all `features` have values
+set to its `default` value.
+
+```json
+{
+  "features": {
+    "OFAC_LIST_MEMBERSHIP": true,
+    "FATF_LIST_MEMBERSHIP": true,
+    "TRANSACTION_AMOUNT": 1000
   }
 }
 ```
 
-**Note in the schema the default values are set to not satisfy the thresholds.**
-For example, the `default` feature document for $x$:
-
-```json
-{
-  "$id": "AML_COMPLIANT",
-  "features": [
-    {
-      "OFAC_LIST_MEMBERSHIP": true
-    },
-    {
-      "FATF_LIST_MEMBERSHIP": true
-    },
-    {
-      "TRANSACTION_AMOUNT": 3000000
-    }
-  ]
-}
-```
-
-$x$ will only satisfy $P(x)$ if given the correct set of [Patch](/feature_extraction/3_implementing_custom_extractors.md)
-operations which would set the values of the features to satisfy the compliance rules:
+As outlined in [section 4.3](/feature_extraction/3_implementing_custom_extractors.md),
+the `Feature Extractor` delivers the values of these features in the form of `JSON patch` operations.
 
 ```json
 "patch": [
   {
-    "op": 1,
+    "op": 2,
     "root": "0x010010",
-    "path": "AML_COMPLIANT/OFAC_LIST_MEMBERSHIP",
+    "$id": "tag:0xbow.io,2024:categories:AML_COMPLIANT:features:OFAC_LIST_MEMBERSHIP",
     "value": "false",
     "merkle-proof": {}
   },
   {
     "op": 2,
     "root": "0x010010",
-    "path": "AML_COMPLIANT/FATF_LIST_MEMBERSHIP",
+    "$d": "tag:0xbow.io,2024:categories:AML_COMPLIANT:features:FATF_LIST_MEMBERSHIP",
     "value": "false",
     "merkle-proof": {}
-  }.
+  },
   {
     "op": 2,
     "root": "0x010010",
-    "path": "AML_COMPLIANT/TRANSACTION_AMOUNT",
+    "$d": "tag:0xbow.io,2024:categories:AML_COMPLIANT:features:TRANSACTION_AMOUNT",
     "value": "100",
     "merkle-proof": {}
   }
 ]
+```
+
+If when applying these patches to the `default` document, the document still satisfies the schema
+and the `features` are consistent with the rules,
+then the record is classified as `AML_COMPLIANT`.
+
+```json
+{
+  "features": {
+    "OFAC_LIST_MEMBERSHIP": false,
+    "FATF_LIST_MEMBERSHIP": false,
+    "TRANSACTION_AMOUNT": 100
+  }
+}
 ```

@@ -11,7 +11,7 @@ or `characteristics` of a Record that are meaningfuly grouped together to form a
   - Accounts associated with the Record beloging to a certain list, i.e. wallet address that executed the transaction:
     - Feature: `ACCOUNT_BLACKLISTED`
   - Asset exposure to certain sources or activities such as Gambling, Money Laundering, etc.
-    - Feature: `ASSET_EXPOSURE_MONYLAUNDERING`
+    - Feature: `ASSET_EXPOSURE_MONEYLAUNDERING`
   - Volume of Assets transferred by a particular list of accounts
     - Feature: `ACCOUNTLIST_ASSET_TRANSFER_VOLUME`
   - Time of the day when the transaction was executed
@@ -23,19 +23,13 @@ or `characteristics` of a Record that are meaningfuly grouped together to form a
 
   - `UNAPPROVED` category that groups the following features:
     - `POLICY_0X1A0B_VIOLATION`
-      - **Threshold**: True
     - `ACCOUNTLIST_ASSET_TRANSFER_VOLUME`
-      - **Threshold**: 1000
   - `APPROVED` category that groups the following features:
     - `ACCOUNT_BLACKLISTED`
-      - **Threshold**: False
     - `ASSET_EXPOSURE_MONYLAUNDERING`
-      - **Threshold**: False
   - `SUSPICIOUS` category that groups the following features:
     - `ACCOUNT_BLACKLISTED`
-      - **Threshold**: True
-    - `ASSET_EXPOSURE_MONYLAUNDERING`
-      - **Threshold**: True
+    - `ASSET_EXPOSURE_MONEYLAUNDERING`
 
 The Feature Extractor is responsible for extracting these features from the Record and delivering
 them in a structured format. It's interface should be minimalistic and easy to implement.

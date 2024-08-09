@@ -9,75 +9,65 @@ across different components of the ASP system & facilitate interoperability with
 ## 4.2.1 JSON Schema for Feature Definition
 
 Category Feature Schema is a [JSON Schema](https://www.learnjsonschema.com/2020-12/) document
-that defines features attributes for all features belonging to a category, i.e:
+that defines the features of a category, i.e:
 
 ```json
 {
-  "$id": "HIGH_RISK",
-  "description": "Category for records associated to illicit activities",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "tag:0xbow.io,2024:categories:AML_COMPLIANT",
+  "title": "Record is AML Compliant",
+  "type": "object",
   "properties": {
     "features": {
-      "items": [
-        {
-          "$id": "DIRECT_SANCTIONED_ENTITY_EXPOSURE",
-          "default": 0,
-          "examples": ["1000000.1"],
-          "maximum": 0,
-          "exclusiveMaximum": 0,
-          "minimum": 1000000.01,
-          "pattern": "",
-          "type": "number"
+      "type": "object",
+      "properties": {
+        "OFAC_LIST_MEMBERSHIP": {
+          "$id": "tag:0xbow.io,2024:categories:AML_COMPLIANT:features:OFAC_LIST_MEMBERSHIP",
+          "type": "boolean",
+          "default": "true"
         },
-        {
-          "$id": "INDIRECT_SANCTIONED_ENTITY_EXPOSURE",
-          "default": 0,
-          "examples": ["3000000.1"],
-          "maximum": 0,
-          "exclusiveMaximum": 0,
-          "minimum": 3000000.01,
-          "pattern": "",
-          "type": "number"
+        "FATF_LIST_MEMBERSHIP": {
+          "$id": "tag:0xbow.io,2024:categories:AML_COMPLIANT:features:FATF_LIST_MEMBERSHIP",
+          "type": "boolean",
+          "default": "true"
+        },
+        "TRANSACTION_AMOUNT": {
+          "$id": "tag:0xbow.io,2024:categories:AML_COMPLIANT:features:TRANSACTION_AMOUNT",
+          "type": "integer",
+          "default": "1000"
         }
-      ],
+      },
       "required": [
-        "DIRECT_SANCTIONED_ENTITY_EXPOSURE",
-        "INDIRECT_SANCTIONED_ENTITY_EXPOSURE"
-      ],
-      "type": "array"
+        "OFAC_LIST_MEMBERSHIP",
+        "FATF_LIST_MEMBERSHIP",
+        "TRANSACTION_AMOUNT"
+      ]
     }
-  }
+  },
+  "required": ["features"]
 }
 ```
 
-In the above example, the `HIGH_RISK` category has two features:
+In the above example, the `AML_COMPLIANT` category has three features:
 
-- Feature item.1: `DIRECT_SANCTIONED_ENTITY_EXPOSURE`
+- `OFAC_LIST_MEMBERSHIP`
+- `FATF_LIST_MEMBERSHIP`
+- `TRANSACTION_AMOUNT`
 
-  - the attributes of this feature:
+This schema can be translated into a data structure which can be
+validated against the schema, i.e.:
 
-    - `default`: 0.0
-    - `examples`: ["1000000.1"],
-    - `minimum`: 1000000.01,
-    - `maximum`: 0
-    - `pattern`: ""
-    - `type`: "number"
-
-    - The attribute of this feature is of the `number` type and must be >1000000.01
-      and has a default value of 0.0
-
-- Feature item.2: `INDIRECT_SANCTIONED_ENTITY_EXPOSURE`
-
-  - the attributes of this feature:
-
-    - `default`: 0.0
-    - `examples`: ["3000000.1"],
-    - `minimum`: 3000000.01,
-    - `maximum`: 0
-    - `pattern`: ""
-    - `type`: "number"
-
-  - Based on the attributes, the value of the feature is of the `number` type and must be >3000000.01
-    and has a efault value of 0.0
+```go
+// As a struct
+// with custom tags
+type AML_COMPLIANT_CATEGORY truct {
+	_ struct{} `id:"0xbow.io,2024"`
+	_ struct{} `category:"AML_COMPLIANT"`
+	OFAC_LIST_MEMBERSHIP boolean `feature:"OFAC_LIST_MEMBERSHIP" default:"true"`
+	FATF_LIST_MEMBERSHIP boolean `feature:"FATF_LIST_MEMBERSHIP" default:"true"`
+	TRANSACTION_AMOUNT integer `feature:"TRANSACTION_AMOUNT" default:"1000"`
+}
+```
 
 ### 4.2.1.1 Generating Category Feature Schema:
 
@@ -102,7 +92,7 @@ type Feature interface {
 	T() FeatureType
 	String() string
 	Attributes() []interface{}
-	Schema() *jsonschema.Schema
+	Schema(idPrefix string) *jsonschema.Schema
 }
 
 type FeatureAttribute interface {
@@ -117,9 +107,11 @@ type FeatureAttribute interface {
 **(b) Declaring Feature Schema for a Category:**
 
 ```go
-package highRiskCat
+package amlCompliantCat
 
 import (
+	"fmt"
+
 	. "github.com/0xbow-io/asp-spec-V1.0/pkg/feature"
 	"github.com/swaggest/jsonschema-go"
 )
@@ -127,15 +119,32 @@ import (
 type _Feature uint
 
 const (
-	_DIRECT_SANCTIONED_ENTITY_EXPOSURE _Feature = iota
-	_INDIRECT_SANCTIONED_ENTITY_EXPOSURE
+	OFAC_LIST_MEMBERSHIP _Feature = iota
+	FATF_LIST_MEMBERSHIP
+	TRANSACTION_AMOUNT
 )
 
 var _ Feature = (*_Feature)(nil)
 
+
 func (f _Feature) T() FeatureType {
-	return FeatureType{Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Object)}
+	switch f {
+	case OFAC_LIST_MEMBERSHIP:
+		return FeatureType{
+			Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Boolean),
+		}
+	case FATF_LIST_MEMBERSHIP:
+		return FeatureType{
+			Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Boolean),
+		}
+	case TRANSACTION_AMOUNT:
+		return FeatureType{
+			Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Number),
+		}
+	}
+	return FeatureType{Type: new(jsonschema.Type)}
 }
+
 
 func (f _Feature) Feature() Feature {
 	return &f
@@ -143,39 +152,34 @@ func (f _Feature) Feature() Feature {
 
 func (f _Feature) String() string {
 	return [...]string{
-		"DIRECT_SANCTIONED_ENTITY_EXPOSURE",
-		"INDIRECT_SANCTIONED_ENTITY_EXPOSURE"}[f]
+		"OFAC_LIST_MEMBERSHIP",
+		"FATF_LIST_MEMBERSHIP",
+		"TRANSACTION_AMOUNT",
+	}[f]
 }
 
 func (f _Feature) Attributes() []interface{} {
 	return [...][]interface{}{
+		// OFAC_LIST_MEMBERSHIP
 		{
-			name:             f.String(),
-			required:         "true",
-			examples:         "1000.1",
-			pattern:          "",
-			_default:         0.0,
-			maximum:          0.0,
-			exclusiveMinimum: 0.0,
-			minimum:          1000000.01,
-			exclusiveMaximum: 0.0,
+			required: "true",
+			_default: true,
 		},
+		// FATF_LIST_MEMBERSHIP
 		{
-			name:             f.String(),
-			required:         "true",
-			examples:         "1000.1",
-			pattern:          "",
-			_default:         0.0,
-			maximum:          0.0,
-			exclusiveMinimum: 0.0,
-			minimum:          1000000.01,
-			exclusiveMaximum: 0.0,
+			required: "true",
+			_default: true,
+		},
+		// "TRANSACTION_AMOUNT"
+		{
+			required: "true",
+			_default: true,
 		},
 	}[f]
 }
 
-func (f _Feature) Schema() (schema *jsonschema.Schema) {
-	id := f.String()
+func (f _Feature) Schema(idPrefix string) (schema *jsonschema.Schema) {
+	id := fmt.Sprintf("%s:features:%s", idPrefix, f.String())
 	schema = &jsonschema.Schema{
 		ID:   &id,
 		Type: f.T().Type,
@@ -192,12 +196,13 @@ func (f _Feature) Schema() (schema *jsonschema.Schema) {
 	return
 }
 
+
 ```
 
 **(c) Schema Generator:**
 
 ```go
-package highRiskCat
+package amlCompliantCat
 
 import (
 	"encoding/json"
@@ -217,30 +222,29 @@ func (s *CategorySchema) MarshalJSON() ([]byte, error) {
 func (s *CategorySchema) applyFeatures(features []Feature) {
 	for i, feature := range features {
 		// add the feature schema to the array
-		s.Schema.Properties["features"].TypeObject.Items.SchemaArray[i] =
-			jsonschema.SchemaOrBool{TypeObject: feature.Schema()}
+		s.Schema.Properties["features"].TypeObject.Properties[feature.String()] = jsonschema.SchemaOrBool{
+			TypeObject: feature.Schema(*s.Schema.ID),
+		}
 		s.Schema.Properties["features"].TypeObject.Required[i] = feature.String()
 	}
 }
 
 func (s *CategorySchema) Generate(
-	name,
-	description string,
-	features []Feature) CategorySchema {
+	label,
+	title string,
+	features []Feature) CategorySchema {s
+	id := fmt.Sprintf("0xbow.io,2024:categories:%s", label)
 	s = &CategorySchema{
 		Schema: &jsonschema.Schema{
-			ID:          &name,
-			Description: &description,
+			ID:    &id,
+			Title: &title,
 			Properties: map[string]jsonschema.SchemaOrBool{
 				// category - feature schema
 				"features": {
 					TypeObject: &jsonschema.Schema{
-						Required: make([]string, len(features)),
-						Type: new(jsonschema.Type).WithSimpleTypes(jsonschema.Array),
-						// arary of features
-						Items: &jsonschema.Items{
-							SchemaArray: make([]jsonschema.SchemaOrBool, len(features)),
-						},
+						Required:   make([]string, len(features)),
+						Type:       new(jsonschema.Type).WithSimpleTypes(jsonschema.Object),
+						Properties: make(map[string]jsonschema.SchemaOrBool),
 					},
 				},
 			},
@@ -249,12 +253,13 @@ func (s *CategorySchema) Generate(
 	defer s.applyFeatures(features)
 	return *s
 }
+
 ```
 
-**(d) Defining the Schema for HIGH_RISK category:**
+**(d) Defining the Schema for AML_COMPLIANT category:**
 
 ```go
-package highRiskCat
+package amlCompliantCat
 
 import (
 	. "github.com/0xbow-io/asp-spec-V1.0/pkg/category"
@@ -262,15 +267,22 @@ import (
 	"github.com/swaggest/jsonschema-go"
 )
 
-var HIGH_RISK_CATEGORY = new(CategorySchema).Generate(
+type _CategorySchema interface {
+	MarshalJSON() ([]byte, error)
+	Generate(label, title string, features []jsonschema.Field) *CategorySchema
+}
+
+
+var AML_COMPLIANT = new(CategorySchema).Generate(
 	// Label
-	"HIGH_RISK",
-	// Description
-	"Category for records associated to illicit activities",
-	// Features
+	"AML_COMPLIANT",
+	// title
+	"Record is AML Compliant",
+	// Required Features
 	[]Feature{
-		Feature(_DIRECT_SANCTIONED_ENTITY_EXPOSURE),
-		Feature(_INDIRECT_SANCTIONED_ENTITY_EXPOSURE),
+		Feature(OFAC_LIST_MEMBERSHIP),
+		Feature(FATF_LIST_MEMBERSHIP),
+		Feature(TRANSACTION_AMOUNT),
 	})
 
 ```

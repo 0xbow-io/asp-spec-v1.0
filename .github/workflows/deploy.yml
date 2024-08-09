@@ -42,7 +42,7 @@ jobs:
           cargo install --version ${MDBOOK_CATPPUCCIN} mdbook-catppuccin
           mdbook-catppuccin install
           cargo install --version ${MDBOOK_MERMAID_VERSION} mdbook-mermaid
-          cargo install --version ${MDBOOK_D2_VERSION} mdbook-d2 --locked
+          cargo install --version ${MDBOOK_D2_VERSION} mdbook-d2
           cargo install --version ${MDBOOK_KATEX_VERSION} mdbook-katex
           cargo install --version ${MDBOOK_TOC_VERSION} mdbook-toc
           cargo install --version ${MDBOOK_FOOTNOTE_VERSION} mdbook-footnote
